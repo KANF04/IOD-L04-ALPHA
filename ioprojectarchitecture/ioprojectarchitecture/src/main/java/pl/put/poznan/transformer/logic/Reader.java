@@ -1,4 +1,5 @@
 package pl.put.poznan.transformer.logic;
 
-public class Reader {
+public interface Reader {
+    <T> T read(String input, Class<T> clazz) throws Exception;
 }
