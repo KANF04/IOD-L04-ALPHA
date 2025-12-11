@@ -1,0 +1,50 @@
+{
+  "building": {
+    "id": 1,
+    "name": "CW",
+    "levels": [
+      {
+        "id": 11,
+        "name": "pietro1",
+        "rooms": [
+          {
+            "id": 111,
+            "name": "L126",
+            "area": 100,
+            "cube": 500,
+            "heating": 15.2,
+            "light": 3200
+          },
+          {
+            "id": 112,
+            "name": "L1.6.18",
+            "area": 50,
+            "cube": 120,
+            "heating": 12.2,
+            "light": 2200
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "name": "pietro2",
+        "rooms": []
+      },
+      {
+      "id":32,
+      "name": "pietro3",
+      "rooms": [
+      	{
+      	  "id": 311,
+      	  "name": "sala 301",
+      	  "area": 30,
+      	  "cube": 90,
+      	  "heating": 10,
+      	  "light": 1000
+      	}
+      ]
+      }
+    ]
+  }
+}
+
