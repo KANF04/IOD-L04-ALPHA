@@ -21,6 +21,10 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
+      - name: GenJavadoc
+        run: mvn javadoc:javadoc
+        working-directory: ./ioprojectarchitecture/ioprojectarchitecture
+
       - name: Build
         run: mvn -B clean package
         working-directory: ./ioprojectarchitecture/ioprojectarchitecture
