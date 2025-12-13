@@ -25,6 +25,20 @@ jobs:
         run: mvn javadoc:javadoc
         working-directory: ./ioprojectarchitecture/ioprojectarchitecture
 
+      - name: Upload Javadoc
+        uses: actions/upload-artifact@v3
+        with:
+          name: javadoc
+          path: ./ioprojectarchitecture/ioprojectarchitecture/target/site/apidocs
+
       - name: Build
         run: mvn -B clean package
         working-directory: ./ioprojectarchitecture/ioprojectarchitecture
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: application
+          path: ./ioprojectarchitecture/ioprojectarchitecture/target/*.jar
+
+        
