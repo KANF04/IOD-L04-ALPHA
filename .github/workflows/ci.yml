@@ -26,7 +26,7 @@ jobs:
         working-directory: ./ioprojectarchitecture/ioprojectarchitecture
 
       - name: Upload Javadoc
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: javadoc
           path: ./ioprojectarchitecture/ioprojectarchitecture/target/site/apidocs
@@ -36,7 +36,7 @@ jobs:
         working-directory: ./ioprojectarchitecture/ioprojectarchitecture
 
       - name: Upload jar
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: application
           path: ./ioprojectarchitecture/ioprojectarchitecture/target/*.jar
