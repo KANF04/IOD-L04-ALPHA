@@ -1,0 +1,35 @@
+body {
+    background-color: #d6d5c9;
+    margin: 15px 15px;
+}
+
+.calculate {
+    border-radius: 8px;
+    background-color: #6da66a;
+    color: #ffffff;
+    border: none;
+    display: inline-block;
+    padding: 10px 16px;
+}
+
+.calculate:hover {
+    border-radius: 8px;
+    background-color: #5f9665;
+    color: #ffffff;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 16px;
+}
+
+.menu {
+    width: 30%;
+    height: 40%;
+    border-radius: 10px;
+    background: #a5c2a7;
+    padding: 10px 10px 60px 20px;
+}
+
+.load {
+    margin-top: 10px;
+}

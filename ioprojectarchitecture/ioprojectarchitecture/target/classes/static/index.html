@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Strona1</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Wczytaj plik:</h1>
+<div class="menu">
+    <h1>Building Info</h1>
+    <br>
+    Wczytaj plik:
 
-<form action="/uploadJson" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" required />
-    <br><br>
-    <button type="submit">Oblicz</button>
-</form>
+    <form class ="load" action="/uploadJson" method="post" enctype="multipart/form-data">
 
+        <input type="checkbox" id="option1" name="option" value="1">
+        <label for="option1">Powierzchnia</label><br>
+
+        <input type="checkbox" id="option2" name="option" value="2">
+        <label for="option2">Objętość</label><br>
+
+        <input type="checkbox" id="option3" name="option" value="3">
+        <label for="option3">Zużycie energii</label><br>
+
+        <input type="checkbox" id="option4" name="option" value="4">
+        <label for="option4">Ogrzewanie</label><br>
+
+        <input type="file" name="file" required />
+        <br><br>
+        <button class="calculate" type="submit">Oblicz</button>
+    </form>
+</div>
 </body>
 </html>

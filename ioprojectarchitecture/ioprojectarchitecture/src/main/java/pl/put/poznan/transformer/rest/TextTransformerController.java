@@ -34,8 +34,17 @@ public class TextTransformerController {
      */
     @PostMapping("/uploadJson")
     @ResponseBody
-    public ResponseEntity<String> uploadJson(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadJson(@RequestParam("file") MultipartFile file,
+                                             @RequestParam(name="option", required=false) String[] options) {
         try {
+
+            if (options != null) {
+                for (String opt : options) {
+                    System.out.println("Zaznaczona opcja: " + opt);
+                }
+            }
+
+
             logger.info("Received file upload: {}", file.getOriginalFilename());
 
             // Create temporary file
