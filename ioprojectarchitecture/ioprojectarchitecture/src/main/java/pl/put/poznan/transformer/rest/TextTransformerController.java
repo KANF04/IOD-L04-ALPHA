@@ -1,7 +1,9 @@
 package pl.put.poznan.transformer.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.transformer.logic.*;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 import java.io.File;
+import java.util.Optional;
 
 /**
  * REST Controller for text transformation operations
@@ -162,6 +165,63 @@ public class TextTransformerController {
             logger.error("Error saving building data", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error saving building: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Calculate volume for a building, level, or room based on JSON input.
+     * @param jsonContent JSON string representing the building structure.
+     * @param levelId Optional ID of the level to calculate volume for.
+     * @param roomId Optional ID of the room to calculate volume for.
+     * @return ResponseEntity with the calculated volume or an error message.
+     */
+    @PostMapping(value = "/volume", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> calculateVolume(@RequestBody String jsonContent,
+                                             @RequestParam(required = false) String levelId,
+                                             @RequestParam(required = false) String roomId) {
+        try {
+            logger.info("Received volume calculation request. LevelId: {}, RoomId: {}", levelId, roomId);
+
+            ObjectMapper mapper = new ObjectMapper();
+            BuildingClasses buildingData = mapper.readValue(jsonContent, BuildingClasses.class);
+
+            if (buildingData.building == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid JSON: 'building' object is missing.");
+            }
+
+            // Case 1: Calculate for a specific room
+            if (roomId != null) {
+                if (levelId == null) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parameter 'levelId' is required when 'roomId' is provided.");
+                }
+                Optional<BuildingClasses.Room> roomOptional = buildingData.findRoomById(levelId, roomId);
+                if (roomOptional.isPresent()) {
+                    return ResponseEntity.ok(buildingData.calculateVolume(roomOptional.get()));
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                            .body("Room with id '" + roomId + "' on level '" + levelId + "' not found.");
+                }
+            }
+
+            // Case 2: Calculate for a specific level
+            if (levelId != null) {
+                Optional<BuildingClasses.Level> levelOptional = buildingData.findLevelById(levelId);
+                if (levelOptional.isPresent()) {
+                    return ResponseEntity.ok(buildingData.calculateVolume(levelOptional.get()));
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Level with id '" + levelId + "' not found.");
+                }
+            }
+
+            // Case 3: Calculate for the whole building
+            double totalVolume = buildingData.calculateVolume(buildingData.building);
+            return ResponseEntity.ok(totalVolume);
+
+        } catch (Exception e) {
+            logger.error("Error processing volume calculation request", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error processing request: " + e.getMessage());
         }
     }
 }
