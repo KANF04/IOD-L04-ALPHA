@@ -7,7 +7,6 @@ import java.util.List;
 
 public class VolumeReportVisitor implements BuildingClasses.Visitor {
 
-    // --- DTO classes are now inner classes ---
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class VolumeReport {
         public String buildingId;
@@ -30,7 +29,6 @@ public class VolumeReportVisitor implements BuildingClasses.Visitor {
         public String roomName;
         public double volume;
     }
-    // -----------------------------------------
 
     private VolumeReport report;
     private LevelReport currentLevelReport;
