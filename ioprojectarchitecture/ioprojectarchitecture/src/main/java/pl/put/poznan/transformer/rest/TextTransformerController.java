@@ -215,26 +215,37 @@ public class TextTransformerController {
 
     @PostMapping(value = "/calculateHeating", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> calculateHeating(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> calculateHeating(@RequestParam("file") MultipartFile file,
+                                              @RequestParam(required = false) String heatingLimit) {
+
+        double limit = 0;
+        if (heatingLimit != null && !heatingLimit.isEmpty()) {
+            try {
+                limit = Double.parseDouble(heatingLimit);
+            } catch (NumberFormatException e) {
+                limit = Double.MAX_VALUE;
+            }
+        }
+
+
         try {
             logger.info("Calculating heating from file: {}", file.getOriginalFilename());
 
             File tempFile = File.createTempFile("heating-calc-", ".json");
             file.transferTo(tempFile);
+
             Reader reader = new LoggingJsonReader(new JsonReader());
             BuildingClasses wrapper = reader.readFromFile(tempFile, BuildingClasses.class);
 
-            HeatingReportVisitor visitor = new HeatingReportVisitor();
+            HeatingReportVisitor visitor = new HeatingReportVisitor(limit);
             if (wrapper.building != null) {
                 wrapper.building.accept(visitor);
             }
-
             HeatingReportVisitor.HeatingReport report = visitor.getReport();
             tempFile.delete();
 
             logger.info("Heating calculation completed successfully");
             return ResponseEntity.ok(report);
-
         } catch (Exception e) {
             logger.error("Error calculating heating", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
