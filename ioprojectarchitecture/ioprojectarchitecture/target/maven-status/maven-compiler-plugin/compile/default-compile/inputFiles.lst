@@ -1,3 +1,11 @@
-/Users/mochodek/Documents/Dydaktyka/Wyklady/IO/Laboratory classes/projekt/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/app/TextTransformerApplication.java
-/Users/mochodek/Documents/Dydaktyka/Wyklady/IO/Laboratory classes/projekt/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/logic/TextTransformer.java
-/Users/mochodek/Documents/Dydaktyka/Wyklady/IO/Laboratory classes/projekt/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/rest/TextTransformerController.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/rest/AreaReportVisitor.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/rest/LuminosityReportVisitor.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/logic/LoggingJsonReader.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/rest/VolumeReportVisitor.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/rest/HeatingReportVisitor.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/rest/TextTransformerController.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/logic/TextTransformer.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/logic/Reader.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/logic/JsonReader.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/logic/BuildingClasses.java
+/home/keos/szkola/s5/inzynieriea_oprogramowania/projekt/IOD-L04-ALPHA/ioprojectarchitecture/ioprojectarchitecture/src/main/java/pl/put/poznan/transformer/app/TextTransformerApplication.java

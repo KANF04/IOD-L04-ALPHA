@@ -253,4 +253,119 @@ public class BuildingClasses {
 
         return report;
     }
+
+    // ... existing methods (calculateVolume, calculateArea, calculateLuminosity) ...
+
+    /**
+     * Calculates the total heating energy consumption of a building.
+     *
+     * @param building The building for which to calculate the heating.
+     * @return The total heating energy consumption of the building.
+     */
+    public double calculateHeating(Building building) {
+        if (building == null || building.levels == null) {
+            return 0.0;
+        }
+        return building.levels.stream().mapToDouble(this::calculateHeating).sum();
+    }
+
+    /**
+     * Calculates the total heating energy consumption of a level.
+     *
+     * @param level The level for which to calculate the heating.
+     * @return The total heating energy consumption of the level.
+     */
+    public double calculateHeating(Level level) {
+        if (level == null || level.rooms == null) {
+            return 0.0;
+        }
+        return level.rooms.stream().mapToDouble(this::calculateHeating).sum();
+    }
+
+    /**
+     * Calculates the heating energy consumption of a room.
+     *
+     * @param room The room for which to calculate the heating.
+     * @return The heating energy consumption of the room.
+     */
+    public double calculateHeating(Room room) {
+        if (room == null) {
+            return 0.0;
+        }
+        return room.heating;
+    }
+
+    /**
+     * Calculates the average heating energy consumption per unit volume for a building.
+     * This represents the heating efficiency metric.
+     *
+     * @param building The building for which to calculate average heating per volume.
+     * @return The average heating per cubic meter, or 0.0 if volume is zero.
+     */
+    public double calculateAverageHeatingPerVolume(Building building) {
+        if (building == null) {
+            return 0.0;
+        }
+        double totalVolume = calculateVolume(building);
+        if (totalVolume == 0.0) {
+            return 0.0;
+        }
+        return calculateHeating(building) / totalVolume;
+    }
+
+    /**
+     * Calculates the average heating energy consumption per unit volume for a level.
+     *
+     * @param level The level for which to calculate average heating per volume.
+     * @return The average heating per cubic meter, or 0.0 if volume is zero.
+     */
+    public double calculateAverageHeatingPerVolume(Level level) {
+        if (level == null) {
+            return 0.0;
+        }
+        double totalVolume = calculateVolume(level);
+        if (totalVolume == 0.0) {
+            return 0.0;
+        }
+        return calculateHeating(level) / totalVolume;
+    }
+
+    /**
+     * Calculates the heating energy consumption per unit volume for a room.
+     *
+     * @param room The room for which to calculate heating per volume.
+     * @return The heating per cubic meter, or 0.0 if volume is zero.
+     */
+    public double calculateHeatingPerVolume(Room room) {
+        if (room == null || room.cube == 0.0) {
+            return 0.0;
+        }
+        return room.heating / room.cube;
+    }
+
+    /**
+     * DTO class for detailed heating report
+     */
+    public static class HeatingReport {
+        public String buildingId;
+        public String buildingName;
+        public double totalHeating;
+        public double averageHeatingPerVolume;
+        public List<LevelHeatingReport> levels;
+    }
+
+    public static class LevelHeatingReport {
+        public String levelId;
+        public String levelName;
+        public double totalHeating;
+        public double averageHeatingPerVolume;
+        public List<RoomHeatingReport> rooms;
+    }
+
+    public static class RoomHeatingReport {
+        public String roomId;
+        public String roomName;
+        public double heating;
+        public double heatingPerVolume;
+    }
 }

@@ -213,6 +213,35 @@ public class TextTransformerController {
         }
     }
 
+    @PostMapping(value = "/calculateHeating", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> calculateHeating(@RequestParam("file") MultipartFile file) {
+        try {
+            logger.info("Calculating heating from file: {}", file.getOriginalFilename());
+
+            File tempFile = File.createTempFile("heating-calc-", ".json");
+            file.transferTo(tempFile);
+            Reader reader = new LoggingJsonReader(new JsonReader());
+            BuildingClasses wrapper = reader.readFromFile(tempFile, BuildingClasses.class);
+
+            HeatingReportVisitor visitor = new HeatingReportVisitor();
+            if (wrapper.building != null) {
+                wrapper.building.accept(visitor);
+            }
+
+            HeatingReportVisitor.HeatingReport report = visitor.getReport();
+            tempFile.delete();
+
+            logger.info("Heating calculation completed successfully");
+            return ResponseEntity.ok(report);
+
+        } catch (Exception e) {
+            logger.error("Error calculating heating", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error calculating heating: " + e.getMessage());
+        }
+    }
+
     @PostMapping(value = "/calculateLuminosity", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> calculateLuminosity(@RequestParam("file") MultipartFile file) {

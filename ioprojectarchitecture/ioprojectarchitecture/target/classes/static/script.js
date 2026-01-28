@@ -24,6 +24,10 @@ function uploadFile() {
                 url = '/calculateLuminosity';
                 text = "Oświetlenie:";
                 break;
+            case '3':
+                url = '/calculateHeating';  // ← NOWY ENDPOINT
+                text = "Ogrzewanie:";
+                break;
         }
 
         const formData = new FormData();
