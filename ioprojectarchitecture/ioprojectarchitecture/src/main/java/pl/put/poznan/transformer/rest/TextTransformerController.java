@@ -26,7 +26,8 @@ public class TextTransformerController {
     private static final Logger logger = LoggerFactory.getLogger(TextTransformerController.class);
 
     /**
-     * Home page redirect
+     * Home page redirect.
+     * @return Redirect to index.html
      */
     @GetMapping("/")
     public String home() {
@@ -34,8 +35,11 @@ public class TextTransformerController {
     }
 
     /**
-     * Upload and process JSON file
-     * Uses decorated Reader for JSON operations
+     * Upload and process JSON file.
+     * Uses decorated Reader for JSON operations.
+     * @param file The uploaded JSON file.
+     * @param options Optional processing options selected by the user.
+     * @return ResponseEntity with a status message.
      */
     @PostMapping("/uploadJson") @ResponseBody
     public ResponseEntity<String> uploadJson( @RequestParam("file") MultipartFile file,
@@ -85,8 +89,10 @@ public class TextTransformerController {
     }
 
     /**
-     * Process JSON string directly
-     * Uses decorated Reader for JSON operations
+     * Process JSON string directly.
+     * Uses decorated Reader for JSON operations.
+     * @param jsonContent String containing raw JSON data.
+     * @return ResponseEntity with a status message.
      */
     @PostMapping("/processJson")
     @ResponseBody
@@ -115,7 +121,9 @@ public class TextTransformerController {
     }
 
     /**
-     * Read building data from uploaded file and return as JSON
+     * Read building data from uploaded file and return as JSON.
+     * @param file The uploaded JSON file.
+     * @return ResponseEntity containing serialized building data.
      */
     @PostMapping("/readBuilding")
     @ResponseBody
@@ -153,6 +161,9 @@ public class TextTransformerController {
     /**
      * Save building data to file
      * Demonstrates write operations with decorator pattern
+     * @param jsonContent JSON string to be saved.
+     * @param filename Desired target filename.
+     * @return ResponseEntity with the absolute path of the saved file.
      */
     @PostMapping("/saveBuilding")
     @ResponseBody
@@ -182,6 +193,11 @@ public class TextTransformerController {
         }
     }
 
+    /**
+     * Calculate volume for each level and room from an uploaded file.
+     * @param file Uploaded JSON file containing building structure.
+     * @return ResponseEntity containing a detailed VolumeReport.
+     */
     @PostMapping(value = "/calculateVolume", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> calculateVolume(@RequestParam("file") MultipartFile file) {
@@ -213,6 +229,11 @@ public class TextTransformerController {
         }
     }
 
+    /**
+     * Calculate heating consumption for building structure from an uploaded file.
+     * @param file Uploaded JSON file containing building structure.
+     * @return ResponseEntity containing a detailed HeatingReport.
+     */
     @PostMapping(value = "/calculateHeating", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> calculateHeating(@RequestParam("file") MultipartFile file,
@@ -253,6 +274,11 @@ public class TextTransformerController {
         }
     }
 
+    /**
+     * Calculate luminosity metrics for building structure from an uploaded file.
+     * @param file Uploaded JSON file containing building structure.
+     * @return ResponseEntity containing a detailed LuminosityReport.
+     */
     @PostMapping(value = "/calculateLuminosity", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> calculateLuminosity(@RequestParam("file") MultipartFile file) {
@@ -287,6 +313,8 @@ public class TextTransformerController {
      * Calculate total area for building structure from uploaded file
      * Uses Visitor Pattern for traversing building structure
      * Uses Decorator Pattern for JSON reading
+     * @param file Uploaded JSON file containing building structure.
+     * @return ResponseEntity containing a detailed AreaReport.
      */
     @PostMapping(value = "/calculateArea", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

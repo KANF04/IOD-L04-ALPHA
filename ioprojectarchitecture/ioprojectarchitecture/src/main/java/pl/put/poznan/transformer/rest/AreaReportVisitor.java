@@ -11,7 +11,9 @@ import java.util.List;
  */
 public class AreaReportVisitor implements BuildingClasses.Visitor {
 
-    // --- DTO classes as inner classes ---
+    /**
+     * DTO representing a complete area report for a building.
+     */
     @JsonInclude(JsonInclude. Include.NON_NULL)
     public static class AreaReport {
         public String buildingId;
@@ -20,6 +22,9 @@ public class AreaReportVisitor implements BuildingClasses.Visitor {
         public List<LevelReport> levels;
     }
 
+    /**
+     * DTO representing area information for a specific level.
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class LevelReport {
         public String levelId;
@@ -28,18 +33,24 @@ public class AreaReportVisitor implements BuildingClasses.Visitor {
         public List<RoomReport> rooms;
     }
 
+    /**
+     * DTO representing area information for an individual room.
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class RoomReport {
         public String roomId;
         public String roomName;
         public double area;
     }
-    // -----------------------------------------
 
     private AreaReport report;
     private LevelReport currentLevelReport;
     private final BuildingClasses calculator = new BuildingClasses();
 
+    /**
+     * Visits a building to initialize the area report and calculate total building area.
+     * @param building The building being visited.
+     */
     @Override
     public void visit(BuildingClasses.Building building) {
         report = new AreaReport();
@@ -49,6 +60,10 @@ public class AreaReportVisitor implements BuildingClasses.Visitor {
         report.levels = new ArrayList<>();
     }
 
+    /**
+     * Visits a level to calculate its total area and prepare its report.
+     * @param level The level being visited.
+     */
     @Override
     public void visit(BuildingClasses. Level level) {
         currentLevelReport = new LevelReport();
@@ -61,6 +76,10 @@ public class AreaReportVisitor implements BuildingClasses.Visitor {
         }
     }
 
+    /**
+     * Visits a room to extract its area and add it to the level report.
+     * @param room The room being visited.
+     */
     @Override
     public void visit(BuildingClasses.Room room) {
         if (currentLevelReport != null) {
@@ -72,6 +91,10 @@ public class AreaReportVisitor implements BuildingClasses.Visitor {
         }
     }
 
+    /**
+     * Returns the generated area report.
+     * @return The completed AreaReport object.
+     */
     public AreaReport getReport() {
         return report;
     }
