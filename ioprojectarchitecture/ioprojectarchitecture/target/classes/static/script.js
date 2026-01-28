@@ -15,7 +15,6 @@ function renderJson(data) {
         `;
     }
 
-    // zwykły obiekt
     let html = '<table class="json-table">';
     for (const key in data) {
         html += `
@@ -43,6 +42,10 @@ function uploadFile() {
     checkedOptions.forEach(option => {
         let url = '';
         let text = '';
+
+        const formData = new FormData();
+        formData.append("file", file);
+
         switch(option) {
             case '0':
                 url = '/calculateArea';
@@ -59,11 +62,13 @@ function uploadFile() {
             case '3':
                 url = '/calculateHeating';  // ← NOWY ENDPOINT
                 text = "Ogrzewanie:";
+
+                const heatingLimit = parseFloat(document.getElementById('heatingLimit').value);
+                if (!isNaN(heatingLimit)) {
+                    formData.append("heatingLimit", heatingLimit);
+                }
                 break;
         }
-
-        const formData = new FormData();
-        formData.append("file", file);
 
         fetch(url, { method: 'POST', body: formData })
             .then(response => response.json())

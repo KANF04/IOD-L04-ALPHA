@@ -13,8 +13,12 @@ import java.util.List;
  * - Total heating energy consumption at building, level, and room granularity
  * - Average heating per unit volume (heating efficiency metric)
  */
+
 public class HeatingReportVisitor implements BuildingClasses.Visitor {
 
+    public HeatingReportVisitor(double heatingLimit) {
+        this.heatingLimit = heatingLimit;
+    }
     /**
      * Data Transfer Object representing a complete heating report for a building.
      *
@@ -40,6 +44,7 @@ public class HeatingReportVisitor implements BuildingClasses.Visitor {
 
         /** List of level reports contained in this building */
         public List<LevelReport> levels;
+
     }
 
     /**
@@ -83,11 +88,14 @@ public class HeatingReportVisitor implements BuildingClasses.Visitor {
 
         /** Heating per cubic meter for this room */
         public double heatingPerVolume;
+
+        public boolean isLimitExceeded;
     }
 
     /** The root report being constructed during traversal */
     private HeatingReport report;
 
+    private double heatingLimit;
     /**
      * Temporary reference to the level report currently being populated with rooms.
      * This is necessary because room visits need to know which level to add themselves to.
@@ -153,6 +161,8 @@ public class HeatingReportVisitor implements BuildingClasses.Visitor {
             roomReport.roomName = room.name;
             roomReport.heating = room.heating;
             roomReport.heatingPerVolume = calculator.calculateHeatingPerVolume(room);
+
+            roomReport.isLimitExceeded = roomReport.heatingPerVolume > heatingLimit;
             currentLevelReport.rooms.add(roomReport);
         }
     }
