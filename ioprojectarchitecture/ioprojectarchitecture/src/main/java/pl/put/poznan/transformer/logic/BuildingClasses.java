@@ -9,7 +9,9 @@ import java.util.Optional;
  * Used with Decorator Pattern for JSON serialization/deserialization
  */
 public class BuildingClasses {
-
+    /**
+     * Interface for the Visitor design pattern to traverse building structure.
+     */
     public interface Visitor {
         void visit(Building building);
         void visit(Level level);
@@ -18,11 +20,17 @@ public class BuildingClasses {
 
     public Building building;
 
+    /**
+     * Represents a building containing multiple levels.
+     */
     public static class Building {
         public String id;
         public String name;
         public List<Level> levels;
-
+        /**
+         * Accepts a visitor to perform operations on the building and its levels.
+         * @param visitor The visitor object.
+         */
         public void accept(Visitor visitor) {
             visitor.visit(this);
             if (levels != null) {
@@ -33,11 +41,18 @@ public class BuildingClasses {
         }
     }
 
+    /**
+     * Represents a single level (floor) containing multiple rooms.
+     */
     public static class Level {
         public String id;
         public String name;
         public List<Room> rooms;
 
+        /**
+         * Accepts a visitor to perform operations on the level and its rooms.
+         * @param visitor The visitor object.
+         */
         public void accept(Visitor visitor) {
             visitor.visit(this);
             if (rooms != null) {
@@ -48,6 +63,9 @@ public class BuildingClasses {
         }
     }
 
+    /**
+     * Represents a single room with specific physical properties.
+     */
     public static class Room {
         public String id;
         public String name;
@@ -55,7 +73,10 @@ public class BuildingClasses {
         public double cube;
         public double heating;
         public double light;
-
+        /**
+         * Accepts a visitor to perform operations on the room.
+         * @param visitor The visitor object.
+         */
         public void accept(Visitor visitor) {
             visitor.visit(this);
         }
@@ -198,6 +219,9 @@ public class BuildingClasses {
         public List<LevelAreaReport> levels;
     }
 
+    /**
+     * DTO class for area report of a specific level.
+     */
     public static class LevelAreaReport {
         public String levelId;
         public String levelName;
@@ -205,6 +229,9 @@ public class BuildingClasses {
         public List<RoomAreaReport> rooms;
     }
 
+    /**
+     * DTO class for area report of a specific room.
+     */
     public static class RoomAreaReport {
         public String roomId;
         public String roomName;
@@ -254,7 +281,6 @@ public class BuildingClasses {
         return report;
     }
 
-    // ... existing methods (calculateVolume, calculateArea, calculateLuminosity) ...
 
     /**
      * Calculates the total heating energy consumption of a building.
@@ -354,6 +380,9 @@ public class BuildingClasses {
         public List<LevelHeatingReport> levels;
     }
 
+    /**
+     * DTO class for heating report of a specific level.
+     */
     public static class LevelHeatingReport {
         public String levelId;
         public String levelName;
@@ -362,6 +391,9 @@ public class BuildingClasses {
         public List<RoomHeatingReport> rooms;
     }
 
+    /**
+     * DTO class for heating report of a specific room.
+     */
     public static class RoomHeatingReport {
         public String roomId;
         public String roomName;

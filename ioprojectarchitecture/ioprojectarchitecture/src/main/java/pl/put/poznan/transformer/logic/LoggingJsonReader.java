@@ -21,6 +21,14 @@ public class LoggingJsonReader implements Reader {
         this.wrapped = wrapped;
     }
 
+    /**
+     * Reads and logs JSON string transformation to an object.
+     * @param input The JSON string to be parsed.
+     * @param clazz The class of the resulting object.
+     * @param <T> The type of the object.
+     * @return The parsed object.
+     * @throws Exception If parsing fails.
+     */
     @Override
     public <T> T read(String input, Class<T> clazz) throws Exception {
         logger.info("Reading JSON string for class: {}", clazz.getSimpleName());
@@ -34,6 +42,14 @@ public class LoggingJsonReader implements Reader {
         return result;
     }
 
+    /**
+     * Reads and logs JSON transformation from a file to an object.
+     * @param file The file containing JSON data.
+     * @param clazz The class of the resulting object.
+     * @param <T> The type of the object.
+     * @return The parsed object.
+     * @throws Exception If file reading or parsing fails.
+     */
     @Override
     public <T> T readFromFile(File file, Class<T> clazz) throws Exception {
         logger.info("Reading JSON from file: {} for class: {}", file.getAbsolutePath(), clazz.getSimpleName());
@@ -46,6 +62,12 @@ public class LoggingJsonReader implements Reader {
         return result;
     }
 
+    /**
+     * Serializes an object to a JSON string and logs the process.
+     * @param obj The object to be serialized.
+     * @return A JSON string representation of the object.
+     * @throws Exception If serialization fails.
+     */
     @Override
     public String write(Object obj) throws Exception {
         logger.info("Writing object to JSON string: {}", obj.getClass().getSimpleName());
@@ -59,6 +81,12 @@ public class LoggingJsonReader implements Reader {
         return result;
     }
 
+    /**
+     * Serializes an object to a JSON file and logs the process.
+     * @param obj The object to be serialized.
+     * @param file The target file.
+     * @throws Exception If writing to file fails.
+     */
     @Override
     public void writeToFile(Object obj, File file) throws Exception {
         logger.info("Writing object to JSON file: {} (type: {})",
