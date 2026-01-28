@@ -23,7 +23,7 @@ body {
 }
 
 .menu {
-    width: 30%;
+    width: 50%;
     height: 40%;
     border-radius: 10px;
     background: #a5c2a7;
@@ -32,4 +32,87 @@ body {
 
 .load {
     margin-top: 10px;
+}
+
+#report {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.report-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.report-card h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.json-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.json-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.json-table td.key {
+    font-weight: bold;
+    color: #34495e;
+    width: 40%;
+}
+
+.json-table td.value {
+    color: #2c3e50;
+}
+
+.json-table ul {
+    margin: 5px 0 5px 20px;
+    padding-left: 15px;
+}
+
+.json-table li {
+    margin-bottom: 4px;
+}
+
+.json-table table {
+    margin-top: 5px;
+}
+
+.building-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.level {
+    border-left: 4px solid #4a7;
+    padding-left: 12px;
+    margin: 15px 0;
+}
+
+.level h4 {
+    margin: 0 0 8px 0;
+    cursor: pointer;
+}
+
+.rooms {
+    margin-left: 15px;
+}
+
+.room {
+    padding: 5px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.muted {
+    color: #777;
+    font-style: italic;
 }

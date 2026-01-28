@@ -1,3 +1,35 @@
+function renderJson(data) {
+    if (data === null) return '<i>null</i>';
+
+    if (typeof data !== 'object') {
+        return `<span>${data}</span>`;
+    }
+
+    if (Array.isArray(data)) {
+        if (data.length === 0) return '<i>(pusta lista)</i>';
+
+        return `
+            <ul>
+                ${data.map(item => `<li>${renderJson(item)}</li>`).join('')}
+            </ul>
+        `;
+    }
+
+    // zwykły obiekt
+    let html = '<table class="json-table">';
+    for (const key in data) {
+        html += `
+            <tr>
+                <td class="key">${key}</td>
+                <td class="value">${renderJson(data[key])}</td>
+            </tr>
+        `;
+    }
+    html += '</table>';
+    return html;
+}
+
+
 function uploadFile() {
     const file = document.getElementById('fileInput').files[0];
     if (!file) { alert("Wybierz plik!"); return; }
@@ -36,12 +68,21 @@ function uploadFile() {
         fetch(url, { method: 'POST', body: formData })
             .then(response => response.json())
             .then(data => {
-                let html = `<h3>${text}</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
-                reportDiv.innerHTML += html;
+                reportDiv.innerHTML += `
+                                    <div class="report-card">
+                                        <h3>${text}</h3>
+                                        ${renderJson(data)}
+                                    </div>
+                                `;
             })
             .catch(err => {
                 console.error(err);
-                reportDiv.innerHTML += `<p style="color:red">Błąd przy ${option}</p>`;
+                reportDiv.innerHTML +=
+                `
+                                    <div class="report-card" style="color:red">
+                                        Błąd przy ${text}
+                                    </div>
+                                `;
             });
     });
 }
